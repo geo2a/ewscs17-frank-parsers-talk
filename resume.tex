@@ -2,23 +2,48 @@
 
 \usepackage[cache=false]{minted}
 
-\makeatletter
-\expandafter\def\csname PYGdefault@tok@err\endcsname{\def\PYGdefault@bc##1{{\strut ##1}}}
-\makeatother
-
-\title[Constructing Parsers with Frank]{Constructing Parsers with Frank}
+\title[]{Построение синтаксических анализаторов на основе алгебраических эффектов}
 
 \subtitle{}
 
-\author[Georgy Lukyanov]{%
-Georgy Lukyanov\texorpdfstring{\\}{ }
-georgiy.lukjanov@gmail.com}
+% \author[Георгий Лукьянов]{%
+% Георгий Лукьянов\texorpdfstring{\\}{ }
+% georgiy.lukjanov@gmail.com}
 
-\date{42 March 2017}%
+% \author[]{%
+% Георгий Лукьянов\texorpdfstring{\\}{ }
+% \textit{georgiy.lukjanov@gmail.com}\texorpdfstring{\\}{ }
+% Артём Пеленицын \texorpdfstring{\\}{ }
+% \textit{apel@sfedu.ru}
+% }
 
-\institute[MMCS SFEDU]{%
-Southern Federal University \texorpdfstring{\\}{ }
-I. I. Vorovich Institute of Mathematics, Mechanics and Computer Science\texorpdfstring{\\}{ }
+
+\author[Г.\,А.\,Лукьянов \& А.\,М.\,Пеленицын]
+{%
+  \texorpdfstring{
+    \begin{columns}
+      % \column{.45\linewidth}
+      % \centering
+      % John Doe\          \href{mailto:john@example.com}{john@example.com}
+      % \column{.45\linewidth}
+      % \centering
+      % Jane Doe\          \href{mailto:jane.doe@example.com}{jane.doe@example.com}
+      \column{.45\linewidth}
+      \centering
+      Георгий Лукьянов\\ \scriptsize{\textit{georgiy.lukjanov@gmail.com}}
+      \column{.45\linewidth}
+      \centering
+      Артём Пеленицын\\ \scriptsize{\textit{apel@sfedu.ru}}
+    \end{columns}
+  }
+  {Г.\,А.\,Лукьянов \& А.\,М.\,Пеленицын}
+}
+
+\date{4 Апреля 2017}%
+
+\institute[]{%
+Южный Федеральный Университет \texorpdfstring{\\}{ }
+Институт Математики, Механики и Компьютерных Наук имени~И.\,И.\,Воровича\texorpdfstring{\\}{ }
 }
 
 % рисунок на титуле
@@ -37,23 +62,31 @@ I. I. Vorovich Institute of Mathematics, Mechanics and Computer Science\texorpdf
 %%%%%%%%%%%%%%%%%  Intro  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \begin{frame}{Outline}
-% \tableofcontents
+\section{Управление побочными эффектами}
+
+% \begin{frame}{Подходы к управлению побочными эффектами (не является классификацией)}
+% \begin{itemize}
+%   \item Функторы
+%   \item Аппликативные функторы
+%   \item Монады (И трансформеры монад)
+%   \item Стрелки
+%   \item Алгебраические эффекты и обработчики эффектов
+% \end{itemize}
 % \end{frame}
 
-\section{Side-effects control}
-
-\begin{frame}
-\imgw{4cm}{xkcd.png} \hfill
-\end{frame}
-
-\begin{frame}{Approaches to effectful computation construction (this is not a classification)}
+\begin{frame}{Виды побочных эффектов}
 \begin{itemize}
-  \item Functors
-  \item Applicatives
-  \item Monads (and Monad Transformers)
-  \item Arrows
-  \item Algebraic Effects and Effects Handler
+  \item Неконтролируемые
+  \begin{itemize}
+    \item \texttt{IO}
+  \end{itemize}
+  \item Контролируемые
+  \begin{itemize}
+    \item \texttt{State}
+    \item \texttt{Reader}
+    \item \texttt{Exception}
+    \item \texttt{...}
+  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -61,25 +94,31 @@ I. I. Vorovich Institute of Mathematics, Mechanics and Computer Science\texorpdf
 %%%%%%%%%%%%%%%%%  Frank  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Язык программирования Frank}
 
-\begin{frame}{Frank programming language}
-  Last version presented on POPL'17 in paper Do be do be do by Sam Lindley, Conor McBride, Craig McLaughlin
-  \begin{block}{Features}
-    \begin{itemize}
-      \item \textbf{Eager} evaluation
-      \item Algebraic data types
-      \item Distinguishing between \emph{values} and \emph{computations}
-      \item \emph{Interfaces} --- effects signatures
-      \item \emph{Operators} --- effects handlers
-      \item Functions are trivial operators that handle no effects
-      \item Effects polymorphism based on \emph{ambient ability}
-    \end{itemize}
-  \end{block}
-\end{frame}
+\input{tex/frank.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%  Building Parsers Combinators with Frank  %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Построение парсеров на Frank}
+
+\input{tex/parsers-effects-combination.tex}
+
+\input{tex/parsers-standalone-effect.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Conclusion  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Заключение}
+\begin{frame}{Результаты}
+  \begin{itemize}
+    \item Построение парсеры на основе комбинации эффектов
+    \item Исследование возможности описания парсера как монолитного эффекта
+  \end{itemize}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  References  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,7 +130,8 @@ I. I. Vorovich Institute of Mathematics, Mechanics and Computer Science\texorpdf
   \item Do be do be do. Sam Lindley, Conor McBride, and Craig McLaughlin. POPL 2017.
   \item A. Bauer and M. Pretnar. Programming with algebraic effects and handlers. J. Log. Algebr. Meth. Program., 84(1):108–123, 2015. URL http://dx.doi.org/10.1016/j.jlamp.2014.02.001.
   \item P. B. Levy. Call-By-Push-Value: A Functional/Imperative Synthesis, volume 2 of Semantics Structures in Computation. Springer, 2004.
-  \item This slides \url{https://github.com/geo2a/ewscs17-frank-parsers-talk}
+  \item Monadic Parser Combinators // \textit{Graham Hutton}, \textit{Erik Meijer} – Department of Computer Science, University of Nottingham, 1996
+  \item Статья и эти слайды \url{https://github.com/geo2a/plc-mmcs-2017-frank-paper}
   \item Frankoparsec --- experimental parser combinators library implemented in Frank \url{https://github.com/geo2a/frankoparsec}
 \end{itemize}
 

@@ -82,23 +82,35 @@
 %\setbeamercolor{palette quaternary}{fg=black, bg=black}
 
 % Логотип ЮФУ
-\logo{\vspace{-.2cm}\includegraphics[height=1.2cm]{img/sfedu.png}}
+% \logo{\vspace{-.2cm}\includegraphics[height=1.2cm]{img/sfedu.png}}
+
+\logo{%
+  \includegraphics[width=1cm,height=1cm,keepaspectratio]{img/lambdra.png}%
+  \hspace{\dimexpr\paperwidth-2cm-5pt}%
+  \includegraphics[width=1cm,height=1cm,keepaspectratio]{img/sfedu.png}%
+}
 
 % В заголовке только название раздела с номером
 % (удобно, когда нет подразделов)
 \setbeamertemplate{headline}
 {%
-\begin{beamercolorbox}[ht=2.5ex,dp=1ex,center]{section in head/foot}
-\usebeamerfont{page number in head/foot}\footnotesize
-\ifthenelse{\value{section} > 0}{\insertsectionnumber. }{}%
-\insertsectionhead
-\end{beamercolorbox}%
+% \begin{beamercolorbox}[ht=2.5ex,dp=1ex,center]{section in head/foot}
+% \usebeamerfont{page number in head/foot}\footnotesize
+% \ifthenelse{\value{section} > 0}{\insertsectionnumber. }{}%
+% \insertsectionhead
+% \end{beamercolorbox}%
+  \begin{beamercolorbox}[ht=2.5ex,dp=1ex,center]{section in head/foot}%
+    \hbox to .5\paperwidth{\hfil\insertsectionhead\hfil}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[ht=2.5ex,dp=1ex,center]{subsection in head/foot}%
+    \hbox to .5\paperwidth{\hfil\insertsubsectionhead\hfil}
+  \end{beamercolorbox}%
 }
 
 \AtBeginSection[]
 {
 \begin{frame}<beamer>
-\frametitle{Outline}
+\frametitle{План}
 \tableofcontents[currentsection,hideothersubsections]
 \end{frame}
 }
