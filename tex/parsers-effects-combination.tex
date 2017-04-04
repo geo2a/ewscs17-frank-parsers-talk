@@ -52,7 +52,7 @@ choose p1 p2 =
   on (parse p1 get!) { (right _)  -> p1!
                      | (left  _)  ->  on (parse p2 get!)
                        { (right _)   -> p2!
-                       | (left err)  -> throw err
+                       | (left err)  -> fail
                        }
                      }
 \end{minted}

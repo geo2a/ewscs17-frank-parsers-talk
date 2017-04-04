@@ -50,12 +50,18 @@ runParser xs <many p -> k> =
 \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{}
-\begin{block}{Проблема гомогенности}
+\begin{frame}[fragile]{Проблема гомогенности}
+\begin{block}{}
 \begin{minted}{haskell}
 runParser : (List Char) -> <Parser X Y>Y ->
             Pair (Maybe Y) (List Char)
 \end{minted}
+\end{block}
+\pause
+\begin{block}{}
+% \begin{minted}{haskell}
+$<Parser~Char~Char> \neq <Parser~Char~(List~Char)>$
+% \end{minted}
 \end{block}
 \pause
 \begin{block}{Гетерогенный список с помощью экзистенциального типа (\texttt{Haskell})}

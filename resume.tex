@@ -74,20 +74,41 @@
 % \end{itemize}
 % \end{frame}
 
-\begin{frame}{Виды побочных эффектов}
-\begin{itemize}
-  \item Неконтролируемые
+\begin{frame}[fragile]{Вычислительные эффекты}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+  \begin{block}{}
+  \begin{minted}{haskell}
+  add : Int -> Int -> Int
+  \end{minted}
+  \end{block}
+  \begin{block}{}
+  \begin{minted}{haskell}
+  addSt : State (Int, Int) Int
+  \end{minted}
+  \end{block}
+  \begin{block}{}
+  \begin{minted}{haskell}
+  addIO : IO Int
+  \end{minted}
+  \end{block}
+\end{column}
+\begin{column}{0.4\textwidth}
   \begin{itemize}
-    \item \texttt{IO}
+    \item Контролируемые
+    \begin{itemize}
+      \item \texttt{State}
+      \item \texttt{Reader}
+      \item \texttt{Exception}
+      \item \texttt{...}
+    \end{itemize}
+    \item Неконтролируемые
+    \begin{itemize}
+      \item \texttt{IO}
+    \end{itemize}
   \end{itemize}
-  \item Контролируемые
-  \begin{itemize}
-    \item \texttt{State}
-    \item \texttt{Reader}
-    \item \texttt{Exception}
-    \item \texttt{...}
-  \end{itemize}
-\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
